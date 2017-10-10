@@ -4,8 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuex from 'vuex'
-Vue.use(Vuex)
+import './stylus/main.styl'
 
+Vue.use(Vuex )
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

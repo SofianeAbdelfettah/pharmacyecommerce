@@ -2,12 +2,15 @@
   <div class="hello">
     {{getstate}}
 
+
   </div>
 </template>
 
 <script>
 import Vuex from 'vuex'
 import Store from '../store/store'
+import Vuetify from 'vuetify'
+
 export default {
   name: 'HelloWorld',
   store: Store,
@@ -30,21 +33,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>
