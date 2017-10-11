@@ -1,37 +1,49 @@
 <template>
 <div id="app">
-
-      <v-layout row>
-  <v-flex d-flex xs12 sm6 md12>
-    <v-card color="theme--dark green accent-2" dark>
-
-      <v-flex xs6 order-lg2>
-        <v-card>
-          <v-card-text>#1</v-card-text>
-        </v-card>
-      </v-flex>
-    <v-flex xs6 order-lg2>
-      <v-card>
-        <v-card-text>#1</v-card-text>
-      </v-card>
-    </v-flex>
-  </v-card>
-  </v-flex>
-</v-layout>
-
+  <v-toolbar light>
+    <router-link flat :to="{ path: '/' }" style="text-decoration: none;color: black;">
+      <v-toolbar-title>Accueil</v-toolbar-title>
+    </router-link>
+    <v-spacer></v-spacer>
+    <v-toolbar-items>
+      <v-btn flat>About us</v-btn>
+      <v-btn flat>Products</v-btn>
+      <v-btn v-if="getuserdata" :to="{ path: 'profile' }" flat color="green accent-3">Profile</v-btn>
+      <v-btn v-if="!getuserdata" :to="{ path: 'connect' }" flat color="green accent-3">Connect</v-btn>
+    </v-toolbar-items>
+  </v-toolbar>
 
 
   <router-view/>
+  <v-footer class="pa-3 footer" color="green accent-2">
+    <v-spacer></v-spacer>
+    <div>© {{ new Date().getFullYear() }}</div>
+  </v-footer>
+
+
 </div>
 </template>
 
 <script>
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import Vuex from 'vuex'
+import Store from './store/store'
 
 Vue.use(Vuetify);
+
 export default {
-  name: 'app'
+  name: 'app',
+  // created() {
+  //   this.$store.dispatch('GetMangas')
+  // },
+  store: Store,
+  computed: {
+    ...Vuex.mapGetters([
+      'getstate',
+      'getuserdata'
+    ])
+  }
 }
 </script>
 
@@ -44,5 +56,27 @@ export default {
   color: #2c3e50;
   margin-top: 60px;*/
   margin: 0;
+}
+
+.header {
+  background-color: red;
+  height: 95px;
+}
+
+.child {
+  color: white;
+  padding: 70px 0;
+
+}
+
+
+.footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 30px;
+  width: 100%;
+  background: #999;
+  color: white;
 }
 </style>
