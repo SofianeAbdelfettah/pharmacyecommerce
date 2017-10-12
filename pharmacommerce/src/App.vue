@@ -1,19 +1,17 @@
 <template>
 <div id="app">
-  <v-toolbar light>
-    <router-link flat :to="{ path: '/' }" style="text-decoration: none;color: black;">
-      <v-toolbar-title>Accueil</v-toolbar-title>
-    </router-link>
-    <v-spacer></v-spacer>
-    <v-toolbar-items>
-      <v-btn flat>About us</v-btn>
-      <v-btn flat>Products</v-btn>
-      <v-btn v-if="getuserdata" :to="{ path: 'profile' }" flat color="green accent-3">Profile</v-btn>
-      <v-btn v-if="!getuserdata" :to="{ path: 'connect' }" flat color="green accent-3">Connect</v-btn>
-    </v-toolbar-items>
-  </v-toolbar>
-
-
+    <v-toolbar light>
+      <router-link flat :to="{ path: '/' }" style="text-decoration: none;color: black;">
+        <v-toolbar-title>Accueil</v-toolbar-title>
+      </router-link>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn flat :to="{ path: 'aboutus' }" color="green accent-3">About us</v-btn>
+        <v-btn flat :to="{ path: 'products' }" color="green accent-3">Products</v-btn>
+        <v-btn v-if="getuserdata" :to="{ path: 'profile' }" flat color="green accent-3">Profile</v-btn>
+        <v-btn v-if="!getuserdata" :to="{ path: 'connect' }" flat color="green accent-3">Connect</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
   <router-view/>
   <v-footer class="pa-3 footer" color="green accent-2">
     <v-spacer></v-spacer>
