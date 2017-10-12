@@ -36,21 +36,25 @@ const actions = {
     store.commit('SET_MLIST', "ok")
   },
   SetUsers: (email) => {
+    console.log(email);
+    return new Promise((resolve, reject) => {
     axios.get(`/users`)
       .then(response => {
-        console.log(email);
         localStorage.setItem('userdata', JSON.stringify(response.data[0]))
-        store.commit('SET_USER_DATA', localStorage.getItem("userdata"))
-        window.location = "profile";
+        store.commit('SET_USER_DATA',  JSON.parse(localStorage.getItem('userdata')))
+        resolve(response)
+      }).catch(e => {
+        reject(e);
+      })
+    })
 
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
   },
   Disconnect: _ => {
-    localStorage.removeItem('userdata')
-    window.location = "/";
+    return new Promise((resolve,reject) => {
+        localStorage.removeItem('userdata')
+        store.commit('SET_USER_DATA', null)
+        resolve('response')
+    })
   }
 
 }

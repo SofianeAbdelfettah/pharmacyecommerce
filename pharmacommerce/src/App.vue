@@ -13,6 +13,7 @@
       </v-toolbar-items>
     </v-toolbar>
   <router-view/>
+
   <v-footer class="pa-3 footer" color="green accent-2">
     <v-spacer></v-spacer>
     <div>© {{ new Date().getFullYear() }}</div>

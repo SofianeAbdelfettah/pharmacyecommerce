@@ -5,14 +5,20 @@
   <br></br>
   <br></br>
 
-  <v-radio-group v-model="colog" column>
-    <v-radio label="Option 1" value="radio-1"></v-radio>
-    <v-radio label="Option 2" value="radio-2"></v-radio>
-  </v-radio-group>
-  <img :src="imagePath()"></img>
 
 
   <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-flex xs3 offset-xs5 class="card">
+        <v-btn flat value="1" v-on:click="log('login')" color="green accent-3">Login</v-btn>
+        <v-btn flat value="2" v-on:click="log('insc')" color="green accent-3">Inscription</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+
+
+  <v-container grid-list-md text-xs-center v-if="colog==='login'">
     <v-layout row wrap>
       <v-flex xs3 offset-xs5 class="card">
         <v-form>
@@ -27,7 +33,7 @@
   </v-container>
 
 
-  <v-container grid-list-md text-xs-center>
+  <v-container grid-list-md text-xs-center v-else>
     <v-layout row wrap>
       <v-flex xs3 offset-xs5 class="card">
         <v-form>
@@ -61,7 +67,7 @@ export default {
   data() {
     return {
       img: "logo.png",
-      colog: true,
+      colog: '',
       login: {
         email: '',
         password: '',
@@ -86,10 +92,17 @@ export default {
   },
   methods: {
     connect() {
-      this.$store.dispatch('SetUsers', this.email)
+      this.$store.dispatch('SetUsers', this.login).then(response => {
+        this.$router.push('/')
+      }, error => {
+        console.error("fail")
+      })
     },
     imagePath: function() {
       return require('./../assets/' + this.img)
+    },
+    log: function(log) {
+      this.colog = log;
     }
   },
   computed: {

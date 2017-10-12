@@ -5,16 +5,26 @@
   <br></br>
   <br></br>
 
-  <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex xs3 offset-xs5 class="card">
 
-        <p>Products</p>
+  <v-layout wrap>
+    <v-flex md3 v-for="number in 10" :key="number" class="cards">
+      <v-card>
+        <v-card-media :src="la" height="200px">
+        </v-card-media>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
+            <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+          </div>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn flat color="orange">Share</v-btn>
+          <v-btn flat color="orange">Explore</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-layout>
 
-
-      </v-flex>
-    </v-layout>
-  </v-container>
 
 
 </div>
@@ -29,7 +39,8 @@ export default {
   store: Store,
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      la:"http://www.drogues-dependance.fr/wp-content/uploads/2015/09/m%C3%A9dicaments-psychoactifs.jpg",
+      msg: 'Welcome to Your Vue.js App',
     }
   },
   methods: {
@@ -48,7 +59,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.card {
-  border-color: #7dfbbe;
+.cards {
+padding-top: 100px;
+padding-right: 30px;
+padding-left: 30px;
+
 }
 </style>

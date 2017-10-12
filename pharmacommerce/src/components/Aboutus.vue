@@ -9,11 +9,11 @@
     <v-layout row wrap>
       <v-flex xs3 offset-xs5 class="card">
         <p>lorem ipsum</p>
-        <template>
           <v-carousel>
             <v-carousel-item v-for="(item,i) in items" v-bind:src="imagePath(item.src)" :key="i"></v-carousel-item>
           </v-carousel>
         </template>
+
       </v-flex>
     </v-layout>
   </v-container>

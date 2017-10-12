@@ -2,28 +2,31 @@
 <div class="hello">
 
 
-<br></br>
-<br></br>
+  <br></br>
+  <br></br>
 
-<v-container grid-list-md text-xs-center>
-   <v-layout row wrap>
-     <v-flex xs3 offset-xs5 class="card">
+  <v-container grid-list-md text-xs-center v-if="getuserdata">
+    <v-layout row wrap>
+      <v-flex xs3 offset-xs5 class="card">
 
 
-       <p>{{getuserdata.name}}</p>
-       <p>{{getuserdata.lastname}}</p>
+        <p>{{getuserdata.name}}</p>
+        <p>{{getuserdata.lastname}}</p>
 
-       <h6><v-icon>email</v-icon>Email:</h6><p>{{getuserdata.email}}</p>
-       <h6><v-icon>phone</v-icon>Telephone:</h6><p>{{getuserdata.phone}}</p>
-       <h6><v-icon>home</v-icon>Adresse:</h6><p>{{getuserdata.address.street}}</p>
-       <p>{{getuserdata.address.zipcode}}</p>
-       <p>{{getuserdata.address.city}}</p>
+        <h6><v-icon>email</v-icon>Email:</h6>
+        <p>{{getuserdata.email}}</p>
+        <h6><v-icon>phone</v-icon>Telephone:</h6>
+        <p>{{getuserdata.phone}}</p>
+        <h6><v-icon>home</v-icon>Adresse:</h6>
+        <p>{{getuserdata.address.street}}</p>
+        <p>{{getuserdata.address.zipcode}}</p>
+        <p>{{getuserdata.address.city}}</p>
 
-       <v-btn v-on:click="Disconnect()">Disconnect</v-btn>
+        <v-btn v-on:click="disconnect()">Disconnect</v-btn>
 
-     </v-flex>
-   </v-layout>
- </v-container>
+      </v-flex>
+    </v-layout>
+  </v-container>
 
 
 </div>
@@ -41,14 +44,17 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  methods:{
-   ...Vuex.mapActions([
-      'Disconnect'
-  ])
+  methods: {
+    disconnect: function() {
+      this.$store.dispatch('Disconnect').then(response => {
+        this.$router.push('home')
+      }, error => {
+        console.error("fail")
+      })
+    }
   },
   computed: {
     ...Vuex.mapGetters([
-      'getstate',
       'getuserdata'
     ])
   }
@@ -57,11 +63,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.card{
+.card {
   border-color: #7dfbbe;
 }
-
-
-
-
 </style>
