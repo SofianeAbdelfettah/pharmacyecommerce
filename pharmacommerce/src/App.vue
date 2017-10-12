@@ -6,8 +6,8 @@
     </router-link>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn flat :to="{ path: 'aboutus' }" color="green accent-3">About us</v-btn>
-      <v-btn flat :to="{ path: 'products' }" color="green accent-3">Products</v-btn>
+      <v-btn flat>About us</v-btn>
+      <v-btn flat>Products</v-btn>
       <v-btn v-if="getuserdata" :to="{ path: 'profile' }" flat color="green accent-3">Profile</v-btn>
       <v-btn v-if="!getuserdata" :to="{ path: 'connect' }" flat color="green accent-3">Connect</v-btn>
     </v-toolbar-items>
@@ -19,6 +19,7 @@
     <v-spacer></v-spacer>
     <div>© {{ new Date().getFullYear() }}</div>
   </v-footer>
+
 
 </div>
 </template>
