@@ -9,8 +9,7 @@
     <v-layout row wrap>
       <v-flex xs3 offset-xs5 class="card">
 
-        <p>lorem ipsum</p>
-
+        <p>Products</p>
 
 
       </v-flex>
@@ -26,7 +25,7 @@ import Vuex from 'vuex'
 import Store from '../store/store'
 
 export default {
-  name: 'Aboutus',
+  name: 'Products',
   store: Store,
   data() {
     return {
