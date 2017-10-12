@@ -47,7 +47,7 @@ export default {
   methods: {
     disconnect: function() {
       this.$store.dispatch('Disconnect').then(response => {
-        this.$router.push('home')
+        this.$router.push('/')
       }, error => {
         console.error("fail")
       })

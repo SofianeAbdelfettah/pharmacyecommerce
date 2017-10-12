@@ -12,7 +12,6 @@
           <v-carousel>
             <v-carousel-item v-for="(item,i) in items" v-bind:src="imagePath(item.src)" :key="i"></v-carousel-item>
           </v-carousel>
-        </template>
 
       </v-flex>
     </v-layout>

@@ -1,5 +1,6 @@
 <template>
 <div class="hello">
+
 <v-container grid-list-md fluid text-xs-center>
       <v-layout row wrap>
         <v-flex xs12>
@@ -12,30 +13,29 @@
         </v-flex>
       </v-layout>
 </v-container>
-<v-container v-bind="{ [`grid-list-${size}`]: true }">
-  <v-layout row wrap>
-    <v-flex
-    xs4
-    v-for="n in 6"
-    :key="n"
-    >
+
+
+<v-layout wrap>
+  <v-flex md3 v-for="a in 10" :key="a" class="cards">
     <v-card>
-          <v-card-media src="https://vuetifyjs.com/static/doc-images/cards/desert.jpg" height="300px" width="150px">
-          </v-card-media>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-              <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-            </div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat color="orange">Share</v-btn>
-            <v-btn flat color="orange">Explore</v-btn>
-          </v-card-actions>
-        </v-card>
-</v-flex>
+      <v-card-media :src="lala" height="200px">
+      </v-card-media>
+      <v-card-title primary-title>
+        <div>
+          <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
+          <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+        </div>
+      </v-card-title>
+      <v-card-actions>
+        <v-btn flat color="orange">Share</v-btn>
+        <v-btn flat color="orange">Explore</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-flex>
 </v-layout>
-</v-container>
+
+
+
 </div>
 </template>
 
@@ -46,16 +46,9 @@ import Store from '../store/store'
 export default {
   name: 'HelloWorld',
   store: Store,
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
-  created() {
-    this.$store.dispatch('GetMangas')
-  },
   data () {
     return {
+      lala:'http://www.drogues-dependance.fr/wp-content/uploads/2015/09/m%C3%A9dicaments-psychoactifs.jpg',
       items: [
         {
           src: 'image1.jpg'
@@ -103,5 +96,11 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+}
+.cards {
+padding-top: 100px;
+padding-right: 30px;
+padding-left: 30px;
+
 }
 </style>
