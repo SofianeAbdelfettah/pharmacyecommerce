@@ -28,13 +28,30 @@ export default {
   store: Store,
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      items: [
+          {
+            src: 'logo.png'
+          },
+          {
+            src: 'logo.png'
+          },
+          {
+            src: 'logo.png'
+          },
+          {
+            src: 'logo.png'
+          }
+        ]
     }
   },
   methods: {
     ...Vuex.mapActions([
       'Disconnect'
-    ])
+    ]),
+    imagePath: function(img) {
+      return require('./../assets/' + img)
+    }
   },
   computed: {
     ...Vuex.mapGetters([
