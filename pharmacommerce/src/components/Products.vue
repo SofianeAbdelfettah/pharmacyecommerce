@@ -1,0 +1,54 @@
+<template>
+<div class="hello">
+
+
+  <br></br>
+  <br></br>
+
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-flex xs3 offset-xs5 class="card">
+
+        <p>Products</p>
+
+
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+
+</div>
+</template>
+
+<script>
+import Vuex from 'vuex'
+import Store from '../store/store'
+
+export default {
+  name: 'Products',
+  store: Store,
+  data() {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    ...Vuex.mapActions([
+      'Disconnect'
+    ])
+  },
+  computed: {
+    ...Vuex.mapGetters([
+      'getstate',
+      'getuserdata'
+    ])
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.card {
+  border-color: #7dfbbe;
+}
+</style>
