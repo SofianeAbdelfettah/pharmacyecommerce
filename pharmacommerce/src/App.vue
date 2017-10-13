@@ -10,6 +10,13 @@
         <v-btn flat :to="{ path: 'products' }" color="green accent-3">Products</v-btn>
         <v-btn v-if="getuserdata" :to="{ path: 'profile' }" flat color="green accent-3">Profile</v-btn>
         <v-btn v-if="!getuserdata" :to="{ path: 'connect' }" flat color="green accent-3">Connect</v-btn>
+        <v-btn icon>
+           <v-badge >
+             <span slot="badge" v-if="getpanier">{{getpanier}}</span>
+             <span slot="badge" v-else>0</span>
+             <v-icon color="grey lighten-1">shopping_cart</v-icon>
+           </v-badge>
+         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
   <router-view/>
@@ -39,7 +46,7 @@ export default {
   store: Store,
   computed: {
     ...Vuex.mapGetters([
-      'getstate',
+      'getpannier',
       'getuserdata'
     ])
   }

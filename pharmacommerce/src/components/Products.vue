@@ -1,11 +1,8 @@
 <template>
 <div class="hello">
 
-
   <br></br>
   <br></br>
-
-
   <v-layout wrap>
     <v-flex md3 v-for="number in 10" :key="number" class="cards">
       <v-card>
@@ -18,14 +15,11 @@
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
+          <v-btn flat color="orange">Ajouter au panier</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>
-
-
 
 </div>
 </template>
@@ -43,15 +37,12 @@ export default {
       msg: 'Welcome to Your Vue.js App',
     }
   },
-  methods: {
-    ...Vuex.mapActions([
-      'Disconnect'
-    ])
-  },
+  // created(){
+  //   this.$store.dispatch('GetAllProducts')
+  // },
   computed: {
     ...Vuex.mapGetters([
-      'getstate',
-      'getuserdata'
+      'getallproducts',
     ])
   }
 }
