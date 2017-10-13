@@ -10,18 +10,19 @@
       <v-flex xs3 offset-xs5 class="card">
 
 
-        <p>{{getuserdata.name}}</p>
-        <p>{{getuserdata.lastname}}</p>
+        <p>{{getuserdata.nom}}</p>
+        <p>{{getuserdata.prenom}}</p>
 
         <h6><v-icon>email</v-icon>Email:</h6>
         <p>{{getuserdata.email}}</p>
         <h6><v-icon>phone</v-icon>Telephone:</h6>
-        <p>{{getuserdata.phone}}</p>
+        <p>{{getuserdata.telephone}}</p>
         <h6><v-icon>home</v-icon>Adresse:</h6>
-        <p>{{getuserdata.address.street}}</p>
-        <p>{{getuserdata.address.zipcode}}</p>
-        <p>{{getuserdata.address.city}}</p>
-
+        <p>{{getuserdata.addresse}}</p>
+        <p>{{getuserdata.cp}}</p>
+        <p>{{getuserdata.city}}</p>
+        <p>{{getuserdata.ordonnance}}</p>
+        
         <v-btn v-on:click="disconnect()">Disconnect</v-btn>
 
       </v-flex>

@@ -12,7 +12,7 @@
         <v-btn v-if="!getuserdata" :to="{ path: 'connect' }" flat color="green accent-3">Connect</v-btn>
         <v-btn icon>
            <v-badge >
-             <span slot="badge" v-if="getpanier">{{getpanier}}</span>
+             <span slot="badge" v-if="getpaniernumb">{{getpaniernumb}}</span>
              <span slot="badge" v-else>0</span>
              <v-icon color="grey lighten-1">shopping_cart</v-icon>
            </v-badge>
@@ -46,7 +46,7 @@ export default {
   store: Store,
   computed: {
     ...Vuex.mapGetters([
-      'getpannier',
+      'getpaniernumb',
       'getuserdata'
     ])
   }
@@ -74,8 +74,12 @@ export default {
   padding: 70px 0;
 
 }
-
-
+.ellip{
+   white-space: nowrap;
+    width: 12em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .footer {
   position: fixed;
   left: 0px;

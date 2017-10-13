@@ -4,26 +4,31 @@ import axios from 'axios'
 
 Vue.use(Vuex, axios)
 
-axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com'
+axios.defaults.baseURL = 'http://23.101.74.230/pharmacie'
 // axios.defaults.headers.common['X-Mashape-Key'] = 'HHhcsH4Q5fmsh1xv3j8eX2oSJP7tp1Ua2UhjsnORPU02apPB5m'
 
 const state = {
   profile: {
-    userid: 'lala',
+    userid: null,
     userdata: JSON.parse(localStorage.getItem('userdata'))
   },
   products: {
-    allproducts: null,
+    allproducts: [],
   },
-  panier:localStorage.getItem('panier'),
+  panier: {
+    numb: localStorage.getItem('paniernumb'),
+    panier: [],
+  },
 }
 
 const getters = {
   // profile page
   getstate: state => store.state.profile.mlist,
+  getuserid: state => store.state.profile.userid,
   getuserdata: state => store.state.profile.userdata,
   getallproducts: state => store.state.products.allproducts,
-  getpanier: state => store.state.panier,
+  getpaniernumb: state => store.state.panier.numb,
+  getpanier: state => store.state.panier.panier,
 }
 
 const mutations = {
@@ -31,30 +36,47 @@ const mutations = {
   SET_MLIST: (state, name) => {
     store.state.profile.mlist = name
   },
+  SET_USER_ID: (state, id) => {
+    store.state.profile.userid = id;
+  },
   SET_USER_DATA: (state, name) => {
     store.state.profile.userdata = name;
   },
   SET_ALL_PRODUCTS: (state, name) => {
     store.state.products.allproducts = name;
   },
-  SET_PANIER: (state, number) => {
-    store.state.panier = number;
+  SET_PANIER_NUMB: (state, number) => {
+    store.state.panier.numb = number;
+  },
+  SET_PANIER: (state, data) => {
+    store.state.panier.panier = data;
   }
 }
 
 const actions = {
-  SetPanier: (store,number) => {
-    localStorage.setItem('panier', number)
-    store.commit('SET_PANIER', localStorage.getItem('panier'))
+  SetPanier: (store, data) => {
+    let array = store.getters.getpanier
+    if (array.includes(data) === true) {
+      array.splice(array.indexOf(data), 1);
+    } else {
+      let a = array.push(data)
+    }
+    localStorage.setItem('panier', JSON.stringify(store.getters.getpanier))
+    store.commit('SET_PANIER', JSON.parse(localStorage.getItem('panier')))
+    store.dispatch('SetPanierNumb', array.length)
+
+  },
+  SetPanierNumb: (store, number) => {
+    localStorage.setItem('paniernumb', number)
+    store.commit('SET_PANIER_NUMB', localStorage.getItem('paniernumb'))
   },
   GetAllProducts: _ => {
-    axios.get(`/users`)
+    axios.get(`/products`)
       .then(response => {
-        // localStorage.setItem('userdata', JSON.stringify(response.data[0]))
-        store.commit('SET_ALL_PRODUCTS', response)
-        resolve(response)
+        localStorage.setItem('allproducts', JSON.stringify(response.data))
+        store.commit('SET_ALL_PRODUCTS', JSON.parse(localStorage.getItem('allproducts')))
       }).catch(e => {
-        reject(e);
+        throw (e);
       })
   },
   Login: (store, name) => {
@@ -70,28 +92,37 @@ const actions = {
     })
   },
   Inscription: (store, user) => {
-
-    // return new Promise((resolve, reject) => {
-    //   axios.post('/user', {
-    //     email: user.email,
-    //     password: user.password,
-    //     nom: user.nom,
-    //     prenom: user.prenom,
-    //     adresse: user.address.adresse,
-    //     city: user.address.city,
-    //     cp: user.address.cp,
-    //     telephone: user.phone
-    //   }).then(function(response) {
-    //     console.log(response);
-    //     localStorage.setItem('userdata', JSON.stringify(response.data[0]))
-    //     store.commit('SET_USER_DATA', JSON.parse(localStorage.getItem('userdata')))
-    //     resolve(response)
-    //   }).catch(e => {
-    //     reject(e);
-    //   })
-    // })
-
+    //
+    return new Promise((resolve, reject) => {
+      axios.post('/users', {
+        email: user.email,
+        password: user.password,
+        nom: user.nom,
+        prenom: user.prenom,
+        adresse: user.address.adresse,
+        city: user.address.city,
+        cp: user.address.cp,
+        telephone: user.phone
+      }).then(function(response) {
+        localStorage.setItem('userid', JSON.stringify(response.data.id_user))
+        store.commit('SET_USER_ID', JSON.parse(localStorage.getItem('userid')))
+        store.dispatch('GetUserData', store.getters.profile.userid)
+        resolve(response)
+      }).catch(e => {
+        reject(e);
+      })
+    })
   },
+  GetUserData: (store, id) => {
+      axios.get(`/users/`+id)
+        .then(response => {
+          localStorage.setItem('userdata', JSON.stringify(response.data))
+          store.commit('SET_USER_DATA', JSON.parse(localStorage.getItem('userdata')))
+        }).catch(e => {
+          throw(e);
+      })
+  },
+
   Disconnect: _ => {
     return new Promise((resolve, reject) => {
       localStorage.removeItem('userdata')

@@ -15,25 +15,38 @@
 </v-container>
 
 
+
+<v-container grid-list-md text-xs-center>
+  <v-layout row wrap>
+    <v-flex xs4 offset-xs4 class="card">
+      <v-btn flat value="1" v-on:click="log(false)" color="green accent-3">Sans ordonnance</v-btn>
+      <v-btn flat value="2" v-on:click="log(true)" color="green accent-3">Avec ordonnance</v-btn>
+    </v-flex>
+  </v-layout>
+</v-container>
+
+
+
 <v-layout wrap>
-  <v-flex md3 v-for="a in 10" :key="a" class="cards">
+  <v-flex md3 v-for="number in getallproducts" :key="number.id" class="cards" v-if="number.ordonnance === ordonnance">
     <v-card>
-      <v-card-media :src="lala" height="200px">
+      <v-card-media :src="number.image" height="200px">
       </v-card-media>
       <v-card-title primary-title>
         <div>
-          <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-          <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+          <h3 class="headline mb-0">{{number.name.substr(0,30)}}</h3>
+          <div>{{number.description.substr(0,100)}} ...</div>
         </div>
       </v-card-title>
       <v-card-actions>
-        <v-btn flat color="orange">Share</v-btn>
-        <v-btn flat color="orange">Explore</v-btn>
+        <v-btn flat color="orange" v-on:click='SetPanier(number.id)'>Ajouter au panier</v-btn>
+        <div>
+          {{number.unit_price}}€ &nbsp Produit restant:{{number.unit_stock}}
+        </div>
       </v-card-actions>
     </v-card>
   </v-flex>
 </v-layout>
-
 
 
 </div>
@@ -48,7 +61,7 @@ export default {
   store: Store,
   data () {
     return {
-      lala:'http://www.drogues-dependance.fr/wp-content/uploads/2015/09/m%C3%A9dicaments-psychoactifs.jpg',
+      ordonnance: true,
       items: [
         {
           src: 'image1.jpg'
@@ -71,11 +84,17 @@ export default {
     ]),
     imagePath: function(img) {
       return require('./../assets/' + img)
+    },
+    log: function(log) {
+      this.ordonnance = log;
     }
+  },
+  created () {
+    this.$store.dispatch('GetAllProducts')
   },
   computed: {
     ...Vuex.mapGetters([
-      'getstate',
+      'getallproducts',
       'getconnect'
     ])
   }
@@ -98,9 +117,9 @@ export default {
   bottom: 0;
 }
 .cards {
-padding-top: 100px;
+padding-top: 50px;
 padding-right: 30px;
 padding-left: 30px;
-
+padding-bottom: 50px;
 }
 </style>
