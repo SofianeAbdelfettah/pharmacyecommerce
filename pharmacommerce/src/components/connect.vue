@@ -85,13 +85,13 @@ export default {
         this.$store.dispatch('Login', this.login).then(response => {
           this.$router.push('/')
         }, error => {
-          console.error("fail")
+          console.error(error)
         })
       }else{
         this.$store.dispatch('Inscription', this.insc).then(response => {
           this.$router.push('/')
         }, error => {
-          console.error("fail")
+          console.error(error)
         })
       }
     },

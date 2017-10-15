@@ -79,17 +79,21 @@ const actions = {
         throw (e);
       })
   },
-  Login: (store, name) => {
+  Login: (store, user) => {
     return new Promise((resolve, reject) => {
-      axios.get(`/users`)
-        .then(response => {
-          localStorage.setItem('userdata', JSON.stringify(response.data[0]))
-          store.commit('SET_USER_DATA', JSON.parse(localStorage.getItem('userdata')))
-          resolve(response)
-        }).catch(e => {
-          reject(e);
-        })
+      axios.post('/login', {
+        email: user.email,
+        password: user.password,
+      }).then(function(response) {
+        localStorage.setItem('userid', response.data.id)
+        store.commit('SET_USER_ID', localStorage.getItem('userid'))
+        store.dispatch('GetUserData', store.getters.getuserid)
+        resolve(response)
+      }).catch(e => {
+        reject(e);
+      })
     })
+
   },
   Inscription: (store, user) => {
     //
@@ -104,9 +108,10 @@ const actions = {
         cp: user.address.cp,
         telephone: user.phone
       }).then(function(response) {
+        console.log(response.data);
         localStorage.setItem('userid', JSON.stringify(response.data.id_user))
         store.commit('SET_USER_ID', JSON.parse(localStorage.getItem('userid')))
-        store.dispatch('GetUserData', store.getters.profile.userid)
+        store.dispatch('GetUserData', store.getters.getuserid)
         resolve(response)
       }).catch(e => {
         reject(e);
